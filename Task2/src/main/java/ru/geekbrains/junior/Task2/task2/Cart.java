@@ -1,4 +1,4 @@
-package ru.geekbrains.junior.lesson1.task2;
+package ru.geekbrains.junior.Task2.task2;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Корзина
+ *
  * @param <T> Еда
  */
 public class Cart<T extends Food> {
@@ -25,10 +26,10 @@ public class Cart<T extends Food> {
 
     /**
      * Создание нового экземпляра корзины
+     *
      * @param market принадлежность к магазину
      */
-    public Cart(Class<T> clazz, UMarket market)
-    {
+    public Cart(Class<T> clazz, UMarket market) {
         this.clazz = clazz;
         this.market = market;
         foodstuffs = new ArrayList<>();
@@ -36,71 +37,61 @@ public class Cart<T extends Food> {
 
     //endregion
 
-    /**
-     * Балансировка корзины
-     */
-    public void cardBalancing()
-    {
-        boolean proteins = false;
-        boolean fats = false;
-        boolean carbohydrates = false;
-
-        for (var food : foodstuffs)
-        {
-            if (!proteins && food.getProteins())
-                proteins = true;
-            else
-            if (!fats && food.getFats())
-                fats = true;
-            else
-            if (!carbohydrates && food.getCarbohydrates())
-                carbohydrates = true;
-            if (proteins && fats && carbohydrates)
-                break;
-        }
-
-        if (proteins && fats && carbohydrates)
-        {
-            System.out.println("Корзина уже сбалансирована по БЖУ.");
-            return;
-        }
-
-        for (var thing : market.getThings(clazz))
-        {
-            if (!proteins && thing.getProteins())
-            {
-                proteins = true;
-                foodstuffs.add(thing);
-            }
-            else if (!fats && thing.getFats())
-            {
-                fats = true;
-                foodstuffs.add(thing);
-            }
-            else if (!carbohydrates && thing.getCarbohydrates())
-            {
-                carbohydrates = true;
-                foodstuffs.add(thing);
-            }
-            if (proteins && fats && carbohydrates)
-                break;
-        }
-
-        if (proteins && fats && carbohydrates)
-            System.out.println("Корзина сбалансирована по БЖУ.");
-        else
-            System.out.println("Невозможно сбалансировать корзину по БЖУ.");
-
-    }
 
     public Collection<T> getFoodstuffs() {
         return foodstuffs;
     }
 
     /**
+     * Балансировка корзины
+     */
+
+//    2. *Дополнительная задача: Переработать метод балансировки корзины
+//        товаров cardBalancing() с использованием Stream API.
+    public void cardBalancing() {
+        boolean proteins = foodstuffs.stream().anyMatch(Food::getProteins);
+        boolean fats = foodstuffs.stream().anyMatch(Food::getFats);
+        boolean carbohydrates = foodstuffs.stream().anyMatch(Food::getCarbohydrates);
+
+        if (proteins && fats && carbohydrates) {
+            System.out.println("Корзина уже сбалансирована по БЖУ.");
+            return;
+        }
+
+        if (!proteins) {
+            foodstuffs.add(market
+                    .getThings(clazz)
+                    .stream()
+                    .filter(Food::getProteins)
+                    .findFirst()
+                    .get());
+        }
+        if (!fats) {
+            foodstuffs.add(market
+                    .getThings(clazz)
+                    .stream()
+                    .filter(Food::getFats)
+                    .findFirst()
+                    .get());
+        }
+        if (!carbohydrates) {
+            foodstuffs.add(market
+                    .getThings(clazz)
+                    .stream()
+                    .filter(Food::getCarbohydrates)
+                    .findFirst().get());
+        }
+
+        if (proteins && fats && carbohydrates)
+            System.out.println("Корзина сбалансирована по БЖУ.");
+        else
+            System.out.println("Невозможно сбалансировать корзину по БЖУ.");
+    }
+
+    /**
      * Распечатать список продуктов в корзине
      */
-    public void printFoodstuffs(){
+    public void printFoodstuffs() {
         /*int index = 1;
         for (var food : foodstuffs)
             System.out.printf("[%d] %s (Белки: %s Жиры: %s Углеводы: %s)\n", index++, food.getName(), food.getProteins() ? "Да" : "Нет",

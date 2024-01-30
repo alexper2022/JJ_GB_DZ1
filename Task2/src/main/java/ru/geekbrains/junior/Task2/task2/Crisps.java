@@ -1,17 +1,17 @@
-package ru.geekbrains.junior.lesson1.task2;
+package ru.geekbrains.junior.Task2.task2;
 
 /**
- * Курица
+ * Чипсы
  */
-public class Chicken implements HealthyFood{
+public class Crisps implements Snack{
     @Override
     public boolean getProteins() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean getFats() {
-        return false;
+        return true;
     }
 
     @Override
@@ -21,6 +21,7 @@ public class Chicken implements HealthyFood{
 
     @Override
     public String getName() {
-        return "Курица";
+        return "Чипсы";
     }
 }
+

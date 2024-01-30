@@ -1,9 +1,9 @@
-package ru.geekbrains.junior.lesson1.task2;
+package ru.geekbrains.junior.Task2.task2;
 
 /**
- * Фрукт
+ * Чебурек
  */
-public class Fruit implements HealthyFood{
+public class Cheburek implements SemiFinishedFood{
     @Override
     public boolean getProteins() {
         return false;
@@ -11,16 +11,16 @@ public class Fruit implements HealthyFood{
 
     @Override
     public boolean getFats() {
-        return false;
-    }
-
-    @Override
-    public boolean getCarbohydrates() {
         return true;
     }
 
     @Override
+    public boolean getCarbohydrates() {
+        return false;
+    }
+
+    @Override
     public String getName() {
-        return "Фрукт";
+        return "Чебурек";
     }
 }

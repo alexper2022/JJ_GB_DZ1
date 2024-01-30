@@ -1,9 +1,9 @@
-package ru.geekbrains.junior.lesson1.task2;
+package ru.geekbrains.junior.Task2.task2;
 
 /**
- * Сыр Балыковый (Балык)
+ * Курица
  */
-public class BalykCheese implements Snack {
+public class Chicken implements HealthyFood{
     @Override
     public boolean getProteins() {
         return true;
@@ -21,6 +21,6 @@ public class BalykCheese implements Snack {
 
     @Override
     public String getName() {
-        return "Сыр (Балык)";
+        return "Курица";
     }
 }

@@ -1,9 +1,9 @@
-package ru.geekbrains.junior.lesson1.task2;
+package ru.geekbrains.junior.Task2.task2;
 
 /**
- * Замороженные ягоды
+ * Шоколадный батончик
  */
-public class DumplingsBerries implements SemiFinishedFood{
+public class ChocolateBar implements Snack{
     @Override
     public boolean getProteins() {
         return false;
@@ -21,6 +21,6 @@ public class DumplingsBerries implements SemiFinishedFood{
 
     @Override
     public String getName() {
-        return "Замороженные ягоды";
+        return "Шоколадный батончик";
     }
 }
